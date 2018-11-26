@@ -73,10 +73,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#linux_kernel-list.h</p>
-<p>看linux的代码看到这段利用头文件实现的链表。这段写的确实经典，简洁（但不算易懂）且用到了C语言的一些奇技淫巧（误），跟数据结构书上的比起来不知道要高到哪去（不过其实我也没有很注意看书上的代码就是了）</p>
+        <h1 id="linux-kernel-list-h"><a href="#linux-kernel-list-h" class="headerlink" title="linux_kernel-list.h"></a>linux_kernel-list.h</h1><p>看linux的代码看到这段利用头文件实现的链表。这段写的确实经典，简洁（但不算易懂）且用到了C语言的一些奇技淫巧（误），跟数据结构书上的比起来不知道要高到哪去（不过其实我也没有很注意看书上的代码就是了）</p>
 <p>写了下注释</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br></pre></td><td class="code"><pre><span class="line">/*-</span><br><span class="line"> * Copyright (c) 2011 Felix Fietkau &lt;nbd@openwrt.org&gt;</span><br><span class="line"> * Copyright (c) 2010 Isilon Systems, Inc.</span><br><span class="line"> * Copyright (c) 2010 iX Systems, Inc.</span><br><span class="line"> * Copyright (c) 2010 Panasas, Inc.</span><br><span class="line"> * All rights reserved.</span><br><span class="line"> *</span><br><span class="line"> * Redistribution and use in source and binary forms, with or without</span><br><span class="line"> * modification, are permitted provided that the following conditions</span><br><span class="line"> * are met:</span><br><span class="line"> * 1. Redistributions of source code must retain the above copyright</span><br><span class="line"> *    notice unmodified, this list of conditions, and the following</span><br><span class="line"> *    disclaimer.</span><br><span class="line"> * 2. Redistributions in binary form must reproduce the above copyright</span><br><span class="line"> *    notice, this list of conditions and the following disclaimer in the</span><br><span class="line"> *    documentation and/or other materials provided with the distribution.</span><br><span class="line"> *</span><br><span class="line"> * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS&apos;&apos; AND ANY EXPRESS OR</span><br><span class="line"> * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES</span><br><span class="line"> * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.</span><br><span class="line"> * IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,</span><br><span class="line"> * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT</span><br><span class="line"> * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span><br><span class="line"> * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span><br><span class="line"> * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span><br><span class="line"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span><br><span class="line"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span><br><span class="line"> */</span><br><span class="line">#ifndef _LINUX_LIST_H_</span><br><span class="line">#define _LINUX_LIST_H_</span><br><span class="line"></span><br><span class="line">#include &lt;stddef.h&gt;</span><br><span class="line">#include &lt;stdbool.h&gt;</span><br><span class="line"></span><br><span class="line">#define	prefetch(x)</span><br><span class="line"></span><br><span class="line">    /*很有趣的一个实现</span><br><span class="line">    __typeof__(((type *) NULL)-&gt;member) *__mptr 把mptr初始化为任意结构体的member元素对应类型的指针</span><br><span class="line">    ptr为结构体内某元素的指针</span><br><span class="line">    offsetof(type, member) 返回type结构体的member成员相对type的偏移量</span><br><span class="line">    因此该宏定义作用是传入一个结构体实例的成员指针，返回该结构体的头指针</span><br><span class="line">    */</span><br><span class="line">#ifndef container_of</span><br><span class="line">#define container_of(ptr, type, member)					\</span><br><span class="line">	(&#123;								\</span><br><span class="line">		const __typeof__(((type *) NULL)-&gt;member) *__mptr = (ptr);	\</span><br><span class="line">		(type *) ((char *) __mptr - offsetof(type, member));	\</span><br><span class="line">	&#125;)</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">struct list_head &#123;</span><br><span class="line">	struct list_head *next;</span><br><span class="line">	struct list_head *prev;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">#define LIST_HEAD_INIT(name) &#123; &amp;(name), &amp;(name) &#125;	</span><br><span class="line">           //这里用name的地址初始化prev和next，使name声明后本身是个回环</span><br><span class="line">#undef LIST_HEAD</span><br><span class="line">#define LIST_HEAD(name)	struct list_head name = LIST_HEAD_INIT(name)</span><br><span class="line"></span><br><span class="line">static inline void</span><br><span class="line">INIT_LIST_HEAD(struct list_head *list)</span><br><span class="line">&#123;</span><br><span class="line">	list-&gt;next = list-&gt;prev = list;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static inline bool</span><br><span class="line">list_empty(const struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	return (head-&gt;next == head);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static inline bool</span><br><span class="line">list_is_first(const struct list_head *list,</span><br><span class="line">	      const struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	return list-&gt;prev == head;			//如果前一个元素就是链表头</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static inline bool</span><br><span class="line">list_is_last(const struct list_head *list,</span><br><span class="line">	     const struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	return list-&gt;next == head;			//如果后一个元素是链表尾</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static inline void</span><br><span class="line">_list_del(struct list_head *entry)</span><br><span class="line">&#123;</span><br><span class="line">	entry-&gt;next-&gt;prev = entry-&gt;prev;</span><br><span class="line">	entry-&gt;prev-&gt;next = entry-&gt;next;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static inline void</span><br><span class="line">list_del(struct list_head *entry)</span><br><span class="line">&#123;</span><br><span class="line">	_list_del(entry);</span><br><span class="line">	entry-&gt;next = entry-&gt;prev = NULL;</span><br><span class="line">&#125;					</span><br><span class="line">		//这里没有free操作，说明这些函数不处理内存分配问题</span><br><span class="line"></span><br><span class="line">static inline void</span><br><span class="line">_list_add(struct list_head *_new, struct list_head *prev,</span><br><span class="line">    struct list_head *next)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	next-&gt;prev = _new;</span><br><span class="line">	_new-&gt;next = next;</span><br><span class="line">	_new-&gt;prev = prev;</span><br><span class="line">	prev-&gt;next = _new;</span><br><span class="line">&#125;						//同样没有malloc</span><br><span class="line"></span><br><span class="line">static inline void</span><br><span class="line">list_del_init(struct list_head *entry)</span><br><span class="line">&#123;</span><br><span class="line">	_list_del(entry);</span><br><span class="line">	INIT_LIST_HEAD(entry);</span><br><span class="line">&#125;</span><br><span class="line">		/*假设list_head是一个容器（结构体）内的成员</span><br><span class="line">		通过list_entry获取该容器对应实例的头指针</span><br><span class="line">		ptr为指向list_head的指针*/</span><br><span class="line">#define	list_entry(ptr, type, field)	container_of(ptr, type, field)</span><br><span class="line">#define	list_first_entry(ptr, type, field)	list_entry((ptr)-&gt;next, type, field)</span><br><span class="line">#define	list_last_entry(ptr, type, field)	list_entry((ptr)-&gt;prev, type, field)</span><br><span class="line"></span><br><span class="line">#define	list_for_each(p, head)						\</span><br><span class="line">	for (p = (head)-&gt;next; p != (head); p = p-&gt;next)</span><br><span class="line"></span><br><span class="line">#define	list_for_each_safe(p, n, head)					\</span><br><span class="line">	for (p = (head)-&gt;next, n = p-&gt;next; p != (head); p = n, n = p-&gt;next)</span><br><span class="line"></span><br><span class="line">#define list_for_each_entry(p, h, field)				\</span><br><span class="line">	for (p = list_first_entry(h, __typeof__(*p), field); &amp;p-&gt;field != (h); \</span><br><span class="line">	    p = list_entry(p-&gt;field.next, __typeof__(*p), field))</span><br><span class="line">										//h为链表头</span><br><span class="line"></span><br><span class="line">#define list_for_each_entry_safe(p, n, h, field)			\</span><br><span class="line">	for (p = list_first_entry(h, __typeof__(*p), field),		\</span><br><span class="line">	    n = list_entry(p-&gt;field.next, __typeof__(*p), field); &amp;p-&gt;field != (h);\</span><br><span class="line">	    p = n, n = list_entry(n-&gt;field.next, __typeof__(*n), field))</span><br><span class="line"></span><br><span class="line">#define	list_for_each_entry_reverse(p, h, field)			\</span><br><span class="line">	for (p = list_last_entry(h, __typeof__(*p), field); &amp;p-&gt;field != (h); \</span><br><span class="line">	    p = list_entry(p-&gt;field.prev, __typeof__(*p), field))</span><br><span class="line"></span><br><span class="line">#define	list_for_each_prev(p, h) for (p = (h)-&gt;prev; p != (h); p = p-&gt;prev)</span><br><span class="line">#define	list_for_each_prev_safe(p, n, h) for (p = (h)-&gt;prev, n = p-&gt;prev; p != (h); p = n, n = p-&gt;prev)</span><br><span class="line"></span><br><span class="line">static inline void</span><br><span class="line">list_add(struct list_head *_new, struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	_list_add(_new, head, head-&gt;next);</span><br><span class="line">            //这里的第三个参数结合list_init构造了一个循环链表</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static inline void</span><br><span class="line">list_add_tail(struct list_head *_new, struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	_list_add(_new, head-&gt;prev, head);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static inline void</span><br><span class="line">list_move(struct list_head *list, struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	_list_del(list);</span><br><span class="line">	list_add(list, head);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static inline void</span><br><span class="line">list_move_tail(struct list_head *entry, struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	_list_del(entry);</span><br><span class="line">	list_add_tail(entry, head);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static inline void</span><br><span class="line">_list_splice(const struct list_head *list, struct list_head *prev,</span><br><span class="line">    struct list_head *next)</span><br><span class="line">&#123;</span><br><span class="line">	struct list_head *first;</span><br><span class="line">	struct list_head *last;</span><br><span class="line"></span><br><span class="line">	if (list_empty(list))</span><br><span class="line">		return;</span><br><span class="line"></span><br><span class="line">	first = list-&gt;next;</span><br><span class="line">	last = list-&gt;prev;</span><br><span class="line">	first-&gt;prev = prev;</span><br><span class="line">	prev-&gt;next = first;</span><br><span class="line">	last-&gt;next = next;</span><br><span class="line">	next-&gt;prev = last;</span><br><span class="line">&#125;	</span><br><span class="line">		//将头为prev尾为next（其实头尾一样）的链表拼接到list链表内，注意拼接后list不再是链表头</span><br><span class="line"></span><br><span class="line">static inline void</span><br><span class="line">list_splice(const struct list_head *list, struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	_list_splice(list, head, head-&gt;next);</span><br><span class="line">&#125;</span><br><span class="line">										//list为待插入链表</span><br><span class="line">static inline void</span><br><span class="line">list_splice_tail(struct list_head *list, struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	_list_splice(list, head-&gt;prev, head);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static inline void</span><br><span class="line">list_splice_init(struct list_head *list, struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	_list_splice(list, head, head-&gt;next);</span><br><span class="line">	INIT_LIST_HEAD(list);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">static inline void</span><br><span class="line">list_splice_tail_init(struct list_head *list, struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	_list_splice(list, head-&gt;prev, head);</span><br><span class="line">	INIT_LIST_HEAD(list);</span><br><span class="line">&#125;</span><br><span class="line">					//插入list后将list头指针初始化</span><br><span class="line">#endif /* _LINUX_LIST_H_ */</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*-</span></span><br><span class="line"><span class="comment"> * Copyright (c) 2011 Felix Fietkau &lt;nbd@openwrt.org&gt;</span></span><br><span class="line"><span class="comment"> * Copyright (c) 2010 Isilon Systems, Inc.</span></span><br><span class="line"><span class="comment"> * Copyright (c) 2010 iX Systems, Inc.</span></span><br><span class="line"><span class="comment"> * Copyright (c) 2010 Panasas, Inc.</span></span><br><span class="line"><span class="comment"> * All rights reserved.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Redistribution and use in source and binary forms, with or without</span></span><br><span class="line"><span class="comment"> * modification, are permitted provided that the following conditions</span></span><br><span class="line"><span class="comment"> * are met:</span></span><br><span class="line"><span class="comment"> * 1. Redistributions of source code must retain the above copyright</span></span><br><span class="line"><span class="comment"> *    notice unmodified, this list of conditions, and the following</span></span><br><span class="line"><span class="comment"> *    disclaimer.</span></span><br><span class="line"><span class="comment"> * 2. Redistributions in binary form must reproduce the above copyright</span></span><br><span class="line"><span class="comment"> *    notice, this list of conditions and the following disclaimer in the</span></span><br><span class="line"><span class="comment"> *    documentation and/or other materials provided with the distribution.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR</span></span><br><span class="line"><span class="comment"> * IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES</span></span><br><span class="line"><span class="comment"> * OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.</span></span><br><span class="line"><span class="comment"> * IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,</span></span><br><span class="line"><span class="comment"> * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT</span></span><br><span class="line"><span class="comment"> * NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,</span></span><br><span class="line"><span class="comment"> * DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY</span></span><br><span class="line"><span class="comment"> * THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT</span></span><br><span class="line"><span class="comment"> * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF</span></span><br><span class="line"><span class="comment"> * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _LINUX_LIST_H_</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _LINUX_LIST_H_</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stddef.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdbool.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	prefetch(x)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*很有趣的一个实现</span></span><br><span class="line"><span class="comment">    __typeof__(((type *) NULL)-&gt;member) *__mptr 把mptr初始化为任意结构体的member元素对应类型的指针</span></span><br><span class="line"><span class="comment">    ptr为结构体内某元素的指针</span></span><br><span class="line"><span class="comment">    offsetof(type, member) 返回type结构体的member成员相对type的偏移量</span></span><br><span class="line"><span class="comment">    因此该宏定义作用是传入一个结构体实例的成员指针，返回该结构体的头指针</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> container_of</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> container_of(ptr, type, member)					\</span></span><br><span class="line">	(&#123;								\</span><br><span class="line">		<span class="keyword">const</span> __typeof__(((type *) <span class="literal">NULL</span>)-&gt;member) *__mptr = (ptr);	\</span><br><span class="line">		(type *) ((<span class="keyword">char</span> *) __mptr - offsetof(type, member));	\</span><br><span class="line">	&#125;)</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> &#123;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> *<span class="title">next</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> *<span class="title">prev</span>;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LIST_HEAD_INIT(name) &#123; &amp;(name), &amp;(name) &#125;	</span></span><br><span class="line">           <span class="comment">//这里用name的地址初始化prev和next，使name声明后本身是个回环</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">undef</span> LIST_HEAD</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LIST_HEAD(name)	struct list_head name = LIST_HEAD_INIT(name)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span></span><br><span class="line">INIT_LIST_HEAD(struct list_head *<span class="built_in">list</span>)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="built_in">list</span>-&gt;next = <span class="built_in">list</span>-&gt;prev = <span class="built_in">list</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">bool</span></span><br><span class="line">list_empty(<span class="keyword">const</span> struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> (head-&gt;next == head);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">bool</span></span><br><span class="line">list_is_first(<span class="keyword">const</span> struct list_head *<span class="built_in">list</span>,</span><br><span class="line">	      <span class="keyword">const</span> struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">list</span>-&gt;prev == head;			<span class="comment">//如果前一个元素就是链表头</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">bool</span></span><br><span class="line">list_is_last(<span class="keyword">const</span> struct list_head *<span class="built_in">list</span>,</span><br><span class="line">	     <span class="keyword">const</span> struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">list</span>-&gt;next == head;			<span class="comment">//如果后一个元素是链表尾</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span></span><br><span class="line">_list_del(struct list_head *entry)</span><br><span class="line">&#123;</span><br><span class="line">	entry-&gt;next-&gt;prev = entry-&gt;prev;</span><br><span class="line">	entry-&gt;prev-&gt;next = entry-&gt;next;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span></span><br><span class="line">list_del(struct list_head *entry)</span><br><span class="line">&#123;</span><br><span class="line">	_list_del(entry);</span><br><span class="line">	entry-&gt;next = entry-&gt;prev = <span class="literal">NULL</span>;</span><br><span class="line">&#125;					</span><br><span class="line">		<span class="comment">//这里没有free操作，说明这些函数不处理内存分配问题</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span></span><br><span class="line">_list_add(struct list_head *_new, struct list_head *prev,</span><br><span class="line">    struct list_head *next)</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">	next-&gt;prev = _new;</span><br><span class="line">	_new-&gt;next = next;</span><br><span class="line">	_new-&gt;prev = prev;</span><br><span class="line">	prev-&gt;next = _new;</span><br><span class="line">&#125;						<span class="comment">//同样没有malloc</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span></span><br><span class="line">list_del_init(struct list_head *entry)</span><br><span class="line">&#123;</span><br><span class="line">	_list_del(entry);</span><br><span class="line">	INIT_LIST_HEAD(entry);</span><br><span class="line">&#125;</span><br><span class="line">		<span class="comment">/*假设list_head是一个容器（结构体）内的成员</span></span><br><span class="line"><span class="comment">		通过list_entry获取该容器对应实例的头指针</span></span><br><span class="line"><span class="comment">		ptr为指向list_head的指针*/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	list_entry(ptr, type, field)	container_of(ptr, type, field)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	list_first_entry(ptr, type, field)	list_entry((ptr)-&gt;next, type, field)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	list_last_entry(ptr, type, field)	list_entry((ptr)-&gt;prev, type, field)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	list_for_each(p, head)						\</span></span><br><span class="line">	<span class="keyword">for</span> (p = (head)-&gt;next; p != (head); p = p-&gt;next)</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	list_for_each_safe(p, n, head)					\</span></span><br><span class="line">	<span class="keyword">for</span> (p = (head)-&gt;next, n = p-&gt;next; p != (head); p = n, n = p-&gt;next)</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_for_each_entry(p, h, field)				\</span></span><br><span class="line">	<span class="keyword">for</span> (p = list_first_entry(h, __typeof__(*p), field); &amp;p-&gt;field != (h); \</span><br><span class="line">	    p = list_entry(p-&gt;field.next, __typeof__(*p), field))</span><br><span class="line">										<span class="comment">//h为链表头</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> list_for_each_entry_safe(p, n, h, field)			\</span></span><br><span class="line">	<span class="keyword">for</span> (p = list_first_entry(h, __typeof__(*p), field),		\</span><br><span class="line">	    n = list_entry(p-&gt;field.next, __typeof__(*p), field); &amp;p-&gt;field != (h);\</span><br><span class="line">	    p = n, n = list_entry(n-&gt;field.next, __typeof__(*n), field))</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	list_for_each_entry_reverse(p, h, field)			\</span></span><br><span class="line">	<span class="keyword">for</span> (p = list_last_entry(h, __typeof__(*p), field); &amp;p-&gt;field != (h); \</span><br><span class="line">	    p = list_entry(p-&gt;field.prev, __typeof__(*p), field))</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	list_for_each_prev(p, h) for (p = (h)-&gt;prev; p != (h); p = p-&gt;prev)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	list_for_each_prev_safe(p, n, h) for (p = (h)-&gt;prev, n = p-&gt;prev; p != (h); p = n, n = p-&gt;prev)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span></span><br><span class="line">list_add(struct list_head *_new, struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	_list_add(_new, head, head-&gt;next);</span><br><span class="line">            <span class="comment">//这里的第三个参数结合list_init构造了一个循环链表</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span></span><br><span class="line">list_add_tail(struct list_head *_new, struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	_list_add(_new, head-&gt;prev, head);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span></span><br><span class="line">list_move(struct list_head *<span class="built_in">list</span>, struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	_list_del(<span class="built_in">list</span>);</span><br><span class="line">	list_add(<span class="built_in">list</span>, head);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span></span><br><span class="line">list_move_tail(struct list_head *entry, struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	_list_del(entry);</span><br><span class="line">	list_add_tail(entry, head);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span></span><br><span class="line">_list_splice(<span class="keyword">const</span> struct list_head *<span class="built_in">list</span>, struct list_head *prev,</span><br><span class="line">    struct list_head *next)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> *<span class="title">first</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> *<span class="title">last</span>;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (list_empty(<span class="built_in">list</span>))</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">	first = <span class="built_in">list</span>-&gt;next;</span><br><span class="line">	last = <span class="built_in">list</span>-&gt;prev;</span><br><span class="line">	first-&gt;prev = prev;</span><br><span class="line">	prev-&gt;next = first;</span><br><span class="line">	last-&gt;next = next;</span><br><span class="line">	next-&gt;prev = last;</span><br><span class="line">&#125;	</span><br><span class="line">		<span class="comment">//将头为prev尾为next（其实头尾一样）的链表拼接到list链表内，注意拼接后list不再是链表头</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span></span><br><span class="line">list_splice(<span class="keyword">const</span> struct list_head *<span class="built_in">list</span>, struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	_list_splice(<span class="built_in">list</span>, head, head-&gt;next);</span><br><span class="line">&#125;</span><br><span class="line">										<span class="comment">//list为待插入链表</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span></span><br><span class="line">list_splice_tail(struct list_head *<span class="built_in">list</span>, struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	_list_splice(<span class="built_in">list</span>, head-&gt;prev, head);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span></span><br><span class="line">list_splice_init(struct list_head *<span class="built_in">list</span>, struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	_list_splice(<span class="built_in">list</span>, head, head-&gt;next);</span><br><span class="line">	INIT_LIST_HEAD(<span class="built_in">list</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span></span><br><span class="line">list_splice_tail_init(struct list_head *<span class="built_in">list</span>, struct list_head *head)</span><br><span class="line">&#123;</span><br><span class="line">	_list_splice(<span class="built_in">list</span>, head-&gt;prev, head);</span><br><span class="line">	INIT_LIST_HEAD(<span class="built_in">list</span>);</span><br><span class="line">&#125;</span><br><span class="line">					<span class="comment">//插入list后将list头指针初始化</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* _LINUX_LIST_H_ */</span></span></span><br></pre></td></tr></table></figure>
 <h2 id="函数功能总结"><a href="#函数功能总结" class="headerlink" title="函数功能总结"></a>函数功能总结</h2><h3 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h3><p>list_head 双向循环链表</p>
 <h3 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h3><p>container_of( 指针,成员类型,成员名 )    传入结构体某个成员的指针返回结构体头指针</p>
 <h3 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h3><p>INIT_LIST_HEAD    初始化链表</p>
@@ -114,38 +113,38 @@
 <p><strong>一个对于CONTAINER_OF和LIST_ENTRY解释得不错的链接</strong></p>
 <p><a href="https://blog.csdn.net/hs794502825/article/details/10364977" target="_blank" rel="external">https://blog.csdn.net/hs794502825/article/details/10364977</a></p>
 <h2 id="几个比较有意思的宏"><a href="#几个比较有意思的宏" class="headerlink" title="几个比较有意思的宏"></a>几个比较有意思的宏</h2><h1 id="offsetof"><a href="#offsetof" class="headerlink" title="offsetof"></a>offsetof</h1><p>出处：openwrt/libubox/list.h</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define offsetof(s,m)  (size_t)&amp;(((s *)0)-&gt;m)</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> offsetof(s,m)  (size_t)&amp;(((s *)0)-&gt;m)</span></span><br></pre></td></tr></table></figure>
 <p>这个宏的作用是求结构体的一个成员相对结构体首地址的偏移量</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((s *)0)-&gt;m</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((s *)<span class="number">0</span>)-&gt;m</span><br></pre></td></tr></table></figure>
 <p>跟</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((s *)NULL)-&gt;m</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">((s *)<span class="literal">NULL</span>)-&gt;m</span><br></pre></td></tr></table></figure>
 <p>等价，这里做了件事，就是将数字0（NULL）强制转换成一个地址，使它的类型为指向结构体的指针s*<br>因此如果调用 offsetof(A,pointer)实际上调用了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(size_t) &amp;((A *)NULL)-&gt;pointer</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">size_t</span>) &amp;((A *)<span class="literal">NULL</span>)-&gt;pointer</span><br></pre></td></tr></table></figure>
 <p>假设pointer成员相对A类型头指针的偏移量为n，那么上述运算的结果即为n<br>因为 &amp;((A<em>)NULL) 值为0，所以 &amp;(((A </em>)NULL)-&gt;pointer)值为n<br>这里注意符号&amp;，原因我就不多说了</p>
 <h1 id="container-of"><a href="#container-of" class="headerlink" title="container_of"></a>container_of</h1><p>出处：openwrt/libubox/list.h</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#define container_of(ptr, type, member)					\</span><br><span class="line">(&#123;								\</span><br><span class="line">	const __typeof__(((type *) NULL)-&gt;member) *__mptr = (ptr);	\</span><br><span class="line">	(type *) ((char *) __mptr - offsetof(type, member));	\</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> container_of(ptr, type, member)					\</span></span><br><span class="line">(&#123;								\</span><br><span class="line">	<span class="keyword">const</span> __typeof__(((type *) <span class="literal">NULL</span>)-&gt;member) *__mptr = (ptr);	\</span><br><span class="line">	(type *) ((<span class="keyword">char</span> *) __mptr - offsetof(type, member));	\</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>这个宏用处在于假设定义了一个结构体</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">typedef struct mystruct&#123;</span><br><span class="line">    int num;</span><br><span class="line">    list_head pointer;</span><br><span class="line">&#125; A;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">mystruct</span>&#123;</span></span><br><span class="line">    <span class="keyword">int</span> num;</span><br><span class="line">    list_head pointer;</span><br><span class="line">&#125; A;</span><br></pre></td></tr></table></figure>
 <p>这里list_head是双向链表的指针，定义如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">typedef struct _list_head&#123;</span><br><span class="line">	struct *list_head prev;</span><br><span class="line">	struct *list_head next;</span><br><span class="line">&#125; list_head;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> _<span class="title">list_head</span>&#123;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> *<span class="title">list_head</span> <span class="title">prev</span>;</span></span><br><span class="line">	<span class="class"><span class="keyword">struct</span> *<span class="title">list_head</span> <span class="title">next</span>;</span></span><br><span class="line">&#125; list_head;</span><br></pre></td></tr></table></figure>
 <p>定义</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A a;</span><br><span class="line">int *p = (int*) &amp;a.pointer.next;    //这里我强制转换成(int*)是省事而已，其实是个不好的做法</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A a;</span><br><span class="line"><span class="keyword">int</span> *p = (<span class="keyword">int</span>*) &amp;a.pointer.next;    <span class="comment">//这里我强制转换成(int*)是省事而已，其实是个不好的做法</span></span><br></pre></td></tr></table></figure>
 <p>此时调用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void *p = NULL;</span><br><span class="line">p = container_of(p,A,pointer);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> *p = <span class="literal">NULL</span>;</span><br><span class="line">p = container_of(p,A,pointer);</span><br></pre></td></tr></table></figure>
 <p>会得到指向a的指针，原因如下，把宏展开</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p = (&#123; const __typeof__( ( (A *)NULL ) -&gt;pointer) *mptr = (p);</span><br><span class="line">       (A*) ( (char*) __mptr - offsetof(A,pointer) ) &#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p = (&#123; <span class="keyword">const</span> __typeof__( ( (A *)<span class="literal">NULL</span> ) -&gt;pointer) *mptr = (p);</span><br><span class="line">       (A*) ( (<span class="keyword">char</span>*) __mptr - offsetof(A,pointer) ) &#125;)</span><br></pre></td></tr></table></figure>
 <p>还是有点难懂，拆分一下<br>第一个问题是，mptr的类型究竟是什么，答案是</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const __typeof__( ( (A *)NULL ) -&gt;pointer)</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> __typeof__( ( (A *)<span class="literal">NULL</span> ) -&gt;pointer)</span><br></pre></td></tr></table></figure>
 <p>再拆分，<strong>typeof</strong>( ( (A <em>)NULL ) -&gt;pointer)是什么？，其实就是A类型的pointer这个成员的类型，即list_head<br><strong>typeof</strong>是gnu C编译器的一个宏，返回变量的类型<br>所以mptr的类型是 const list_head </em><br>所以这个宏的第一步是</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const list_head * mptr = (p);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> list_head * mptr = (p);</span><br></pre></td></tr></table></figure>
 <p>再看第二步</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(A*) ( (char*) __mptr - offsetof(A,pointer) )</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(A*) ( (<span class="keyword">char</span>*) __mptr - offsetof(A,pointer) )</span><br></pre></td></tr></table></figure>
 <p>第一步定义的mptr减去mptr指向的成员（在本例中是pointer）相对A结构体首地址的偏移<br>因此得到的就是该A结构体实例的首地址，即a，这也是为什么第二步的最外层是个(A*)的强制转换</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nen9ma0.githubio.com/2018/11/26/linux_kernel-list.h/" data-id="cjoyhgq6u0006osv0gm6fgxwd" class="article-share-link">Share</a>
+      <a data-url="https://nen9ma0.githubio.com/2018/11/26/linux_kernel-list.h/" data-id="cjoyhs6w10007e4v0dofu7ttr" class="article-share-link">Share</a>
       
       
     </footer>
@@ -171,7 +170,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nen9ma0.githubio.com/2018/03/19/pthread/" data-id="cjoyhgq3d0000osv0f84uv490" class="article-share-link">Share</a>
+      <a data-url="https://nen9ma0.githubio.com/2018/03/19/pthread/" data-id="cjoyhs6vl0000e4v0l5khvl6x" class="article-share-link">Share</a>
       
       
     </footer>
@@ -264,7 +263,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nen9ma0.githubio.com/2018/03/14/Bit_Twidding_Hack/" data-id="cjoyhgq590001osv0vbcpm98v" class="article-share-link">Share</a>
+      <a data-url="https://nen9ma0.githubio.com/2018/03/14/Bit_Twidding_Hack/" data-id="cjoyhs6vu0003e4v0g42fsabc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -299,7 +298,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nen9ma0.githubio.com/2018/03/14/emmmm/" data-id="cjoyhgq5c0003osv0v9mm83gk" class="article-share-link">Share</a>
+      <a data-url="https://nen9ma0.githubio.com/2018/03/14/emmmm/" data-id="cjoyhs6w00006e4v0lap7nti9" class="article-share-link">Share</a>
       
       
     </footer>
@@ -461,7 +460,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nen9ma0.githubio.com/2018/03/14/z3py/" data-id="cjoyhgq6y0007osv0u74daof1" class="article-share-link">Share</a>
+      <a data-url="https://nen9ma0.githubio.com/2018/03/14/z3py/" data-id="cjoyhs6w30009e4v0dofneqe1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -503,7 +502,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nen9ma0.githubio.com/2017/11/14/README/" data-id="cjoyhgq5b0002osv06vtq3ikp" class="article-share-link">Share</a>
+      <a data-url="https://nen9ma0.githubio.com/2017/11/14/README/" data-id="cjoyhs6vt0002e4v0vbuo6018" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Init/">Init</a></li></ul>
@@ -544,7 +543,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nen9ma0.githubio.com/2017/11/14/emmm/" data-id="cjoyhgq5j0005osv0vwgtj8oy" class="article-share-link">Share</a>
+      <a data-url="https://nen9ma0.githubio.com/2017/11/14/emmm/" data-id="cjoyhs6vq0001e4v02xwugn9r" class="article-share-link">Share</a>
       
       
     </footer>
@@ -589,7 +588,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://nen9ma0.githubio.com/2017/11/14/hello-world/" data-id="cjoyhgq7q0009osv0w9kvsf2d" class="article-share-link">Share</a>
+      <a data-url="https://nen9ma0.githubio.com/2017/11/14/hello-world/" data-id="cjoyhs6vz0005e4v09xn36n2o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -672,954 +671,35 @@
     <h3 class="title">友情链接</h3>
       <ul class="entry">
         
-          <li class='link'><a href='P'>0</a></li>
+          <li class='link'><a href='http://pupiles.com/'>Pupil</a></li>
         
-          <li class='link'><a href='u'>1</a></li>
+          <li class='link'><a href='http://iruby.me'>Dimo</a></li>
         
-          <li class='link'><a href='p'>2</a></li>
+          <li class='link'><a href='http://math1as.com/'>math1as</a></li>
         
-          <li class='link'><a href='i'>3</a></li>
+          <li class='link'><a href='https://www.leavesongs.com/'>Ph1thon</a></li>
         
-          <li class='link'><a href='l'>4</a></li>
+          <li class='link'><a href='http://www.cnblogs.com/iamstudy/'>l3m0n</a></li>
         
-          <li class='link'><a href=':'>5</a></li>
+          <li class='link'><a href='http://120.25.96.6/wordpress/'>Chanson</a></li>
         
-          <li class='link'><a href=' '>6</a></li>
+          <li class='link'><a href='http://www.k0rz3n.com/'>K0rz3n</a></li>
         
-          <li class='link'><a href=' '>7</a></li>
+          <li class='link'><a href='https://notwo1f.github.io'>notwo1f</a></li>
         
-          <li class='link'><a href=' '>8</a></li>
+          <li class='link'><a href='http://arch0n.sumblog.cn/'>Arch0n</a></li>
         
-          <li class='link'><a href='h'>9</a></li>
+          <li class='link'><a href='http://feiyyx.cc/'>feiyyx</a></li>
         
-          <li class='link'><a href='t'>10</a></li>
+          <li class='link'><a href='http://f1sh.site/'>f1sh</a></li>
         
-          <li class='link'><a href='t'>11</a></li>
+          <li class='link'><a href='http://www.jestyf.cn'>xiaopu</a></li>
         
-          <li class='link'><a href='p'>12</a></li>
+          <li class='link'><a href='https://www.short-circuits.org'>yeonji</a></li>
         
-          <li class='link'><a href=':'>13</a></li>
+          <li class='link'><a href='https://bonus.zhishan-iot.ga'>zhishanIOT</a></li>
         
-          <li class='link'><a href='/'>14</a></li>
-        
-          <li class='link'><a href='/'>15</a></li>
-        
-          <li class='link'><a href='p'>16</a></li>
-        
-          <li class='link'><a href='u'>17</a></li>
-        
-          <li class='link'><a href='p'>18</a></li>
-        
-          <li class='link'><a href='i'>19</a></li>
-        
-          <li class='link'><a href='l'>20</a></li>
-        
-          <li class='link'><a href='e'>21</a></li>
-        
-          <li class='link'><a href='s'>22</a></li>
-        
-          <li class='link'><a href='.'>23</a></li>
-        
-          <li class='link'><a href='c'>24</a></li>
-        
-          <li class='link'><a href='o'>25</a></li>
-        
-          <li class='link'><a href='m'>26</a></li>
-        
-          <li class='link'><a href='/'>27</a></li>
-        
-          <li class='link'><a href='
-'>28</a></li>
-        
-          <li class='link'><a href='D'>29</a></li>
-        
-          <li class='link'><a href='i'>30</a></li>
-        
-          <li class='link'><a href='m'>31</a></li>
-        
-          <li class='link'><a href='o'>32</a></li>
-        
-          <li class='link'><a href=':'>33</a></li>
-        
-          <li class='link'><a href=' '>34</a></li>
-        
-          <li class='link'><a href=' '>35</a></li>
-        
-          <li class='link'><a href=' '>36</a></li>
-        
-          <li class='link'><a href=' '>37</a></li>
-        
-          <li class='link'><a href='h'>38</a></li>
-        
-          <li class='link'><a href='t'>39</a></li>
-        
-          <li class='link'><a href='t'>40</a></li>
-        
-          <li class='link'><a href='p'>41</a></li>
-        
-          <li class='link'><a href=':'>42</a></li>
-        
-          <li class='link'><a href='/'>43</a></li>
-        
-          <li class='link'><a href='/'>44</a></li>
-        
-          <li class='link'><a href='i'>45</a></li>
-        
-          <li class='link'><a href='r'>46</a></li>
-        
-          <li class='link'><a href='u'>47</a></li>
-        
-          <li class='link'><a href='b'>48</a></li>
-        
-          <li class='link'><a href='y'>49</a></li>
-        
-          <li class='link'><a href='.'>50</a></li>
-        
-          <li class='link'><a href='m'>51</a></li>
-        
-          <li class='link'><a href='e'>52</a></li>
-        
-          <li class='link'><a href='
-'>53</a></li>
-        
-          <li class='link'><a href='m'>54</a></li>
-        
-          <li class='link'><a href='a'>55</a></li>
-        
-          <li class='link'><a href='t'>56</a></li>
-        
-          <li class='link'><a href='h'>57</a></li>
-        
-          <li class='link'><a href='1'>58</a></li>
-        
-          <li class='link'><a href='a'>59</a></li>
-        
-          <li class='link'><a href='s'>60</a></li>
-        
-          <li class='link'><a href=':'>61</a></li>
-        
-          <li class='link'><a href=' '>62</a></li>
-        
-          <li class='link'><a href='h'>63</a></li>
-        
-          <li class='link'><a href='t'>64</a></li>
-        
-          <li class='link'><a href='t'>65</a></li>
-        
-          <li class='link'><a href='p'>66</a></li>
-        
-          <li class='link'><a href=':'>67</a></li>
-        
-          <li class='link'><a href='/'>68</a></li>
-        
-          <li class='link'><a href='/'>69</a></li>
-        
-          <li class='link'><a href='m'>70</a></li>
-        
-          <li class='link'><a href='a'>71</a></li>
-        
-          <li class='link'><a href='t'>72</a></li>
-        
-          <li class='link'><a href='h'>73</a></li>
-        
-          <li class='link'><a href='1'>74</a></li>
-        
-          <li class='link'><a href='a'>75</a></li>
-        
-          <li class='link'><a href='s'>76</a></li>
-        
-          <li class='link'><a href='.'>77</a></li>
-        
-          <li class='link'><a href='c'>78</a></li>
-        
-          <li class='link'><a href='o'>79</a></li>
-        
-          <li class='link'><a href='m'>80</a></li>
-        
-          <li class='link'><a href='/'>81</a></li>
-        
-          <li class='link'><a href='
-'>82</a></li>
-        
-          <li class='link'><a href='P'>83</a></li>
-        
-          <li class='link'><a href='h'>84</a></li>
-        
-          <li class='link'><a href='1'>85</a></li>
-        
-          <li class='link'><a href='t'>86</a></li>
-        
-          <li class='link'><a href='h'>87</a></li>
-        
-          <li class='link'><a href='o'>88</a></li>
-        
-          <li class='link'><a href='n'>89</a></li>
-        
-          <li class='link'><a href=':'>90</a></li>
-        
-          <li class='link'><a href=' '>91</a></li>
-        
-          <li class='link'><a href='h'>92</a></li>
-        
-          <li class='link'><a href='t'>93</a></li>
-        
-          <li class='link'><a href='t'>94</a></li>
-        
-          <li class='link'><a href='p'>95</a></li>
-        
-          <li class='link'><a href='s'>96</a></li>
-        
-          <li class='link'><a href=':'>97</a></li>
-        
-          <li class='link'><a href='/'>98</a></li>
-        
-          <li class='link'><a href='/'>99</a></li>
-        
-          <li class='link'><a href='w'>100</a></li>
-        
-          <li class='link'><a href='w'>101</a></li>
-        
-          <li class='link'><a href='w'>102</a></li>
-        
-          <li class='link'><a href='.'>103</a></li>
-        
-          <li class='link'><a href='l'>104</a></li>
-        
-          <li class='link'><a href='e'>105</a></li>
-        
-          <li class='link'><a href='a'>106</a></li>
-        
-          <li class='link'><a href='v'>107</a></li>
-        
-          <li class='link'><a href='e'>108</a></li>
-        
-          <li class='link'><a href='s'>109</a></li>
-        
-          <li class='link'><a href='o'>110</a></li>
-        
-          <li class='link'><a href='n'>111</a></li>
-        
-          <li class='link'><a href='g'>112</a></li>
-        
-          <li class='link'><a href='s'>113</a></li>
-        
-          <li class='link'><a href='.'>114</a></li>
-        
-          <li class='link'><a href='c'>115</a></li>
-        
-          <li class='link'><a href='o'>116</a></li>
-        
-          <li class='link'><a href='m'>117</a></li>
-        
-          <li class='link'><a href='/'>118</a></li>
-        
-          <li class='link'><a href='
-'>119</a></li>
-        
-          <li class='link'><a href='l'>120</a></li>
-        
-          <li class='link'><a href='3'>121</a></li>
-        
-          <li class='link'><a href='m'>122</a></li>
-        
-          <li class='link'><a href='0'>123</a></li>
-        
-          <li class='link'><a href='n'>124</a></li>
-        
-          <li class='link'><a href=':'>125</a></li>
-        
-          <li class='link'><a href=' '>126</a></li>
-        
-          <li class='link'><a href=' '>127</a></li>
-        
-          <li class='link'><a href=' '>128</a></li>
-        
-          <li class='link'><a href='h'>129</a></li>
-        
-          <li class='link'><a href='t'>130</a></li>
-        
-          <li class='link'><a href='t'>131</a></li>
-        
-          <li class='link'><a href='p'>132</a></li>
-        
-          <li class='link'><a href=':'>133</a></li>
-        
-          <li class='link'><a href='/'>134</a></li>
-        
-          <li class='link'><a href='/'>135</a></li>
-        
-          <li class='link'><a href='w'>136</a></li>
-        
-          <li class='link'><a href='w'>137</a></li>
-        
-          <li class='link'><a href='w'>138</a></li>
-        
-          <li class='link'><a href='.'>139</a></li>
-        
-          <li class='link'><a href='c'>140</a></li>
-        
-          <li class='link'><a href='n'>141</a></li>
-        
-          <li class='link'><a href='b'>142</a></li>
-        
-          <li class='link'><a href='l'>143</a></li>
-        
-          <li class='link'><a href='o'>144</a></li>
-        
-          <li class='link'><a href='g'>145</a></li>
-        
-          <li class='link'><a href='s'>146</a></li>
-        
-          <li class='link'><a href='.'>147</a></li>
-        
-          <li class='link'><a href='c'>148</a></li>
-        
-          <li class='link'><a href='o'>149</a></li>
-        
-          <li class='link'><a href='m'>150</a></li>
-        
-          <li class='link'><a href='/'>151</a></li>
-        
-          <li class='link'><a href='i'>152</a></li>
-        
-          <li class='link'><a href='a'>153</a></li>
-        
-          <li class='link'><a href='m'>154</a></li>
-        
-          <li class='link'><a href='s'>155</a></li>
-        
-          <li class='link'><a href='t'>156</a></li>
-        
-          <li class='link'><a href='u'>157</a></li>
-        
-          <li class='link'><a href='d'>158</a></li>
-        
-          <li class='link'><a href='y'>159</a></li>
-        
-          <li class='link'><a href='/'>160</a></li>
-        
-          <li class='link'><a href='
-'>161</a></li>
-        
-          <li class='link'><a href='C'>162</a></li>
-        
-          <li class='link'><a href='h'>163</a></li>
-        
-          <li class='link'><a href='a'>164</a></li>
-        
-          <li class='link'><a href='n'>165</a></li>
-        
-          <li class='link'><a href='s'>166</a></li>
-        
-          <li class='link'><a href='o'>167</a></li>
-        
-          <li class='link'><a href='n'>168</a></li>
-        
-          <li class='link'><a href=':'>169</a></li>
-        
-          <li class='link'><a href=' '>170</a></li>
-        
-          <li class='link'><a href='h'>171</a></li>
-        
-          <li class='link'><a href='t'>172</a></li>
-        
-          <li class='link'><a href='t'>173</a></li>
-        
-          <li class='link'><a href='p'>174</a></li>
-        
-          <li class='link'><a href=':'>175</a></li>
-        
-          <li class='link'><a href='/'>176</a></li>
-        
-          <li class='link'><a href='/'>177</a></li>
-        
-          <li class='link'><a href='1'>178</a></li>
-        
-          <li class='link'><a href='2'>179</a></li>
-        
-          <li class='link'><a href='0'>180</a></li>
-        
-          <li class='link'><a href='.'>181</a></li>
-        
-          <li class='link'><a href='2'>182</a></li>
-        
-          <li class='link'><a href='5'>183</a></li>
-        
-          <li class='link'><a href='.'>184</a></li>
-        
-          <li class='link'><a href='9'>185</a></li>
-        
-          <li class='link'><a href='6'>186</a></li>
-        
-          <li class='link'><a href='.'>187</a></li>
-        
-          <li class='link'><a href='6'>188</a></li>
-        
-          <li class='link'><a href='/'>189</a></li>
-        
-          <li class='link'><a href='w'>190</a></li>
-        
-          <li class='link'><a href='o'>191</a></li>
-        
-          <li class='link'><a href='r'>192</a></li>
-        
-          <li class='link'><a href='d'>193</a></li>
-        
-          <li class='link'><a href='p'>194</a></li>
-        
-          <li class='link'><a href='r'>195</a></li>
-        
-          <li class='link'><a href='e'>196</a></li>
-        
-          <li class='link'><a href='s'>197</a></li>
-        
-          <li class='link'><a href='s'>198</a></li>
-        
-          <li class='link'><a href='/'>199</a></li>
-        
-          <li class='link'><a href='
-'>200</a></li>
-        
-          <li class='link'><a href='K'>201</a></li>
-        
-          <li class='link'><a href='0'>202</a></li>
-        
-          <li class='link'><a href='r'>203</a></li>
-        
-          <li class='link'><a href='z'>204</a></li>
-        
-          <li class='link'><a href='3'>205</a></li>
-        
-          <li class='link'><a href='n'>206</a></li>
-        
-          <li class='link'><a href=':'>207</a></li>
-        
-          <li class='link'><a href=' '>208</a></li>
-        
-          <li class='link'><a href=' '>209</a></li>
-        
-          <li class='link'><a href='h'>210</a></li>
-        
-          <li class='link'><a href='t'>211</a></li>
-        
-          <li class='link'><a href='t'>212</a></li>
-        
-          <li class='link'><a href='p'>213</a></li>
-        
-          <li class='link'><a href=':'>214</a></li>
-        
-          <li class='link'><a href='/'>215</a></li>
-        
-          <li class='link'><a href='/'>216</a></li>
-        
-          <li class='link'><a href='w'>217</a></li>
-        
-          <li class='link'><a href='w'>218</a></li>
-        
-          <li class='link'><a href='w'>219</a></li>
-        
-          <li class='link'><a href='.'>220</a></li>
-        
-          <li class='link'><a href='k'>221</a></li>
-        
-          <li class='link'><a href='0'>222</a></li>
-        
-          <li class='link'><a href='r'>223</a></li>
-        
-          <li class='link'><a href='z'>224</a></li>
-        
-          <li class='link'><a href='3'>225</a></li>
-        
-          <li class='link'><a href='n'>226</a></li>
-        
-          <li class='link'><a href='.'>227</a></li>
-        
-          <li class='link'><a href='c'>228</a></li>
-        
-          <li class='link'><a href='o'>229</a></li>
-        
-          <li class='link'><a href='m'>230</a></li>
-        
-          <li class='link'><a href='/'>231</a></li>
-        
-          <li class='link'><a href='
-'>232</a></li>
-        
-          <li class='link'><a href='n'>233</a></li>
-        
-          <li class='link'><a href='o'>234</a></li>
-        
-          <li class='link'><a href='t'>235</a></li>
-        
-          <li class='link'><a href='w'>236</a></li>
-        
-          <li class='link'><a href='o'>237</a></li>
-        
-          <li class='link'><a href='1'>238</a></li>
-        
-          <li class='link'><a href='f'>239</a></li>
-        
-          <li class='link'><a href=':'>240</a></li>
-        
-          <li class='link'><a href=' '>241</a></li>
-        
-          <li class='link'><a href='h'>242</a></li>
-        
-          <li class='link'><a href='t'>243</a></li>
-        
-          <li class='link'><a href='t'>244</a></li>
-        
-          <li class='link'><a href='p'>245</a></li>
-        
-          <li class='link'><a href='s'>246</a></li>
-        
-          <li class='link'><a href=':'>247</a></li>
-        
-          <li class='link'><a href='/'>248</a></li>
-        
-          <li class='link'><a href='/'>249</a></li>
-        
-          <li class='link'><a href='n'>250</a></li>
-        
-          <li class='link'><a href='o'>251</a></li>
-        
-          <li class='link'><a href='t'>252</a></li>
-        
-          <li class='link'><a href='w'>253</a></li>
-        
-          <li class='link'><a href='o'>254</a></li>
-        
-          <li class='link'><a href='1'>255</a></li>
-        
-          <li class='link'><a href='f'>256</a></li>
-        
-          <li class='link'><a href='.'>257</a></li>
-        
-          <li class='link'><a href='g'>258</a></li>
-        
-          <li class='link'><a href='i'>259</a></li>
-        
-          <li class='link'><a href='t'>260</a></li>
-        
-          <li class='link'><a href='h'>261</a></li>
-        
-          <li class='link'><a href='u'>262</a></li>
-        
-          <li class='link'><a href='b'>263</a></li>
-        
-          <li class='link'><a href='.'>264</a></li>
-        
-          <li class='link'><a href='i'>265</a></li>
-        
-          <li class='link'><a href='o'>266</a></li>
-        
-          <li class='link'><a href=' '>267</a></li>
-        
-          <li class='link'><a href='
-'>268</a></li>
-        
-          <li class='link'><a href='A'>269</a></li>
-        
-          <li class='link'><a href='r'>270</a></li>
-        
-          <li class='link'><a href='c'>271</a></li>
-        
-          <li class='link'><a href='h'>272</a></li>
-        
-          <li class='link'><a href='0'>273</a></li>
-        
-          <li class='link'><a href='n'>274</a></li>
-        
-          <li class='link'><a href=':'>275</a></li>
-        
-          <li class='link'><a href=' '>276</a></li>
-        
-          <li class='link'><a href=' '>277</a></li>
-        
-          <li class='link'><a href='h'>278</a></li>
-        
-          <li class='link'><a href='t'>279</a></li>
-        
-          <li class='link'><a href='t'>280</a></li>
-        
-          <li class='link'><a href='p'>281</a></li>
-        
-          <li class='link'><a href=':'>282</a></li>
-        
-          <li class='link'><a href='/'>283</a></li>
-        
-          <li class='link'><a href='/'>284</a></li>
-        
-          <li class='link'><a href='a'>285</a></li>
-        
-          <li class='link'><a href='r'>286</a></li>
-        
-          <li class='link'><a href='c'>287</a></li>
-        
-          <li class='link'><a href='h'>288</a></li>
-        
-          <li class='link'><a href='0'>289</a></li>
-        
-          <li class='link'><a href='n'>290</a></li>
-        
-          <li class='link'><a href='.'>291</a></li>
-        
-          <li class='link'><a href='s'>292</a></li>
-        
-          <li class='link'><a href='u'>293</a></li>
-        
-          <li class='link'><a href='m'>294</a></li>
-        
-          <li class='link'><a href='b'>295</a></li>
-        
-          <li class='link'><a href='l'>296</a></li>
-        
-          <li class='link'><a href='o'>297</a></li>
-        
-          <li class='link'><a href='g'>298</a></li>
-        
-          <li class='link'><a href='.'>299</a></li>
-        
-          <li class='link'><a href='c'>300</a></li>
-        
-          <li class='link'><a href='n'>301</a></li>
-        
-          <li class='link'><a href='/'>302</a></li>
-        
-          <li class='link'><a href='
-'>303</a></li>
-        
-          <li class='link'><a href='f'>304</a></li>
-        
-          <li class='link'><a href='e'>305</a></li>
-        
-          <li class='link'><a href='i'>306</a></li>
-        
-          <li class='link'><a href='y'>307</a></li>
-        
-          <li class='link'><a href='y'>308</a></li>
-        
-          <li class='link'><a href='x'>309</a></li>
-        
-          <li class='link'><a href=':'>310</a></li>
-        
-          <li class='link'><a href=' '>311</a></li>
-        
-          <li class='link'><a href=' '>312</a></li>
-        
-          <li class='link'><a href='h'>313</a></li>
-        
-          <li class='link'><a href='t'>314</a></li>
-        
-          <li class='link'><a href='t'>315</a></li>
-        
-          <li class='link'><a href='p'>316</a></li>
-        
-          <li class='link'><a href=':'>317</a></li>
-        
-          <li class='link'><a href='/'>318</a></li>
-        
-          <li class='link'><a href='/'>319</a></li>
-        
-          <li class='link'><a href='f'>320</a></li>
-        
-          <li class='link'><a href='e'>321</a></li>
-        
-          <li class='link'><a href='i'>322</a></li>
-        
-          <li class='link'><a href='y'>323</a></li>
-        
-          <li class='link'><a href='y'>324</a></li>
-        
-          <li class='link'><a href='x'>325</a></li>
-        
-          <li class='link'><a href='.'>326</a></li>
-        
-          <li class='link'><a href='c'>327</a></li>
-        
-          <li class='link'><a href='c'>328</a></li>
-        
-          <li class='link'><a href='/'>329</a></li>
-        
-          <li class='link'><a href='
-'>330</a></li>
-        
-          <li class='link'><a href='f'>331</a></li>
-        
-          <li class='link'><a href='1'>332</a></li>
-        
-          <li class='link'><a href='s'>333</a></li>
-        
-          <li class='link'><a href='h'>334</a></li>
-        
-          <li class='link'><a href=':'>335</a></li>
-        
-          <li class='link'><a href=' '>336</a></li>
-        
-          <li class='link'><a href=' '>337</a></li>
-        
-          <li class='link'><a href=' '>338</a></li>
-        
-          <li class='link'><a href=' '>339</a></li>
-        
-          <li class='link'><a href='h'>340</a></li>
-        
-          <li class='link'><a href='t'>341</a></li>
-        
-          <li class='link'><a href='t'>342</a></li>
-        
-          <li class='link'><a href='p'>343</a></li>
-        
-          <li class='link'><a href=':'>344</a></li>
-        
-          <li class='link'><a href='/'>345</a></li>
-        
-          <li class='link'><a href='/'>346</a></li>
-        
-          <li class='link'><a href='f'>347</a></li>
-        
-          <li class='link'><a href='1'>348</a></li>
-        
-          <li class='link'><a href='s'>349</a></li>
-        
-          <li class='link'><a href='h'>350</a></li>
-        
-          <li class='link'><a href='.'>351</a></li>
-        
-          <li class='link'><a href='s'>352</a></li>
-        
-          <li class='link'><a href='i'>353</a></li>
-        
-          <li class='link'><a href='t'>354</a></li>
-        
-          <li class='link'><a href='e'>355</a></li>
-        
-          <li class='link'><a href='/'>356</a></li>
-        
-          <li class='link'><a href='
-'>357</a></li>
-        
-          <li class='link'><a href='x'>358</a></li>
-        
-          <li class='link'><a href='i'>359</a></li>
-        
-          <li class='link'><a href='a'>360</a></li>
-        
-          <li class='link'><a href='o'>361</a></li>
-        
-          <li class='link'><a href='p'>362</a></li>
-        
-          <li class='link'><a href='u'>363</a></li>
-        
-          <li class='link'><a href=':'>364</a></li>
-        
-          <li class='link'><a href=' '>365</a></li>
-        
-          <li class='link'><a href=' '>366</a></li>
-        
-          <li class='link'><a href='h'>367</a></li>
-        
-          <li class='link'><a href='t'>368</a></li>
-        
-          <li class='link'><a href='t'>369</a></li>
-        
-          <li class='link'><a href='p'>370</a></li>
-        
-          <li class='link'><a href=':'>371</a></li>
-        
-          <li class='link'><a href='/'>372</a></li>
-        
-          <li class='link'><a href='/'>373</a></li>
-        
-          <li class='link'><a href='w'>374</a></li>
-        
-          <li class='link'><a href='w'>375</a></li>
-        
-          <li class='link'><a href='w'>376</a></li>
-        
-          <li class='link'><a href='.'>377</a></li>
-        
-          <li class='link'><a href='j'>378</a></li>
-        
-          <li class='link'><a href='e'>379</a></li>
-        
-          <li class='link'><a href='s'>380</a></li>
-        
-          <li class='link'><a href='t'>381</a></li>
-        
-          <li class='link'><a href='y'>382</a></li>
-        
-          <li class='link'><a href='f'>383</a></li>
-        
-          <li class='link'><a href='.'>384</a></li>
-        
-          <li class='link'><a href='c'>385</a></li>
-        
-          <li class='link'><a href='n'>386</a></li>
-        
-          <li class='link'><a href='
-'>387</a></li>
-        
-          <li class='link'><a href='y'>388</a></li>
-        
-          <li class='link'><a href='e'>389</a></li>
-        
-          <li class='link'><a href='o'>390</a></li>
-        
-          <li class='link'><a href='n'>391</a></li>
-        
-          <li class='link'><a href='j'>392</a></li>
-        
-          <li class='link'><a href='i'>393</a></li>
-        
-          <li class='link'><a href=':'>394</a></li>
-        
-          <li class='link'><a href=' '>395</a></li>
-        
-          <li class='link'><a href=' '>396</a></li>
-        
-          <li class='link'><a href='h'>397</a></li>
-        
-          <li class='link'><a href='t'>398</a></li>
-        
-          <li class='link'><a href='t'>399</a></li>
-        
-          <li class='link'><a href='p'>400</a></li>
-        
-          <li class='link'><a href='s'>401</a></li>
-        
-          <li class='link'><a href=':'>402</a></li>
-        
-          <li class='link'><a href='/'>403</a></li>
-        
-          <li class='link'><a href='/'>404</a></li>
-        
-          <li class='link'><a href='w'>405</a></li>
-        
-          <li class='link'><a href='w'>406</a></li>
-        
-          <li class='link'><a href='w'>407</a></li>
-        
-          <li class='link'><a href='.'>408</a></li>
-        
-          <li class='link'><a href='s'>409</a></li>
-        
-          <li class='link'><a href='h'>410</a></li>
-        
-          <li class='link'><a href='o'>411</a></li>
-        
-          <li class='link'><a href='r'>412</a></li>
-        
-          <li class='link'><a href='t'>413</a></li>
-        
-          <li class='link'><a href='-'>414</a></li>
-        
-          <li class='link'><a href='c'>415</a></li>
-        
-          <li class='link'><a href='i'>416</a></li>
-        
-          <li class='link'><a href='r'>417</a></li>
-        
-          <li class='link'><a href='c'>418</a></li>
-        
-          <li class='link'><a href='u'>419</a></li>
-        
-          <li class='link'><a href='i'>420</a></li>
-        
-          <li class='link'><a href='t'>421</a></li>
-        
-          <li class='link'><a href='s'>422</a></li>
-        
-          <li class='link'><a href='.'>423</a></li>
-        
-          <li class='link'><a href='o'>424</a></li>
-        
-          <li class='link'><a href='r'>425</a></li>
-        
-          <li class='link'><a href='g'>426</a></li>
-        
-          <li class='link'><a href='
-'>427</a></li>
-        
-          <li class='link'><a href='z'>428</a></li>
-        
-          <li class='link'><a href='h'>429</a></li>
-        
-          <li class='link'><a href='i'>430</a></li>
-        
-          <li class='link'><a href='s'>431</a></li>
-        
-          <li class='link'><a href='h'>432</a></li>
-        
-          <li class='link'><a href='a'>433</a></li>
-        
-          <li class='link'><a href='n'>434</a></li>
-        
-          <li class='link'><a href='I'>435</a></li>
-        
-          <li class='link'><a href='O'>436</a></li>
-        
-          <li class='link'><a href='T'>437</a></li>
-        
-          <li class='link'><a href=':'>438</a></li>
-        
-          <li class='link'><a href=' '>439</a></li>
-        
-          <li class='link'><a href='h'>440</a></li>
-        
-          <li class='link'><a href='t'>441</a></li>
-        
-          <li class='link'><a href='t'>442</a></li>
-        
-          <li class='link'><a href='p'>443</a></li>
-        
-          <li class='link'><a href='s'>444</a></li>
-        
-          <li class='link'><a href=':'>445</a></li>
-        
-          <li class='link'><a href='/'>446</a></li>
-        
-          <li class='link'><a href='/'>447</a></li>
-        
-          <li class='link'><a href='b'>448</a></li>
-        
-          <li class='link'><a href='o'>449</a></li>
-        
-          <li class='link'><a href='n'>450</a></li>
-        
-          <li class='link'><a href='u'>451</a></li>
-        
-          <li class='link'><a href='s'>452</a></li>
-        
-          <li class='link'><a href='.'>453</a></li>
-        
-          <li class='link'><a href='z'>454</a></li>
-        
-          <li class='link'><a href='h'>455</a></li>
-        
-          <li class='link'><a href='i'>456</a></li>
-        
-          <li class='link'><a href='s'>457</a></li>
-        
-          <li class='link'><a href='h'>458</a></li>
-        
-          <li class='link'><a href='a'>459</a></li>
-        
-          <li class='link'><a href='n'>460</a></li>
-        
-          <li class='link'><a href='-'>461</a></li>
-        
-          <li class='link'><a href='i'>462</a></li>
-        
-          <li class='link'><a href='o'>463</a></li>
-        
-          <li class='link'><a href='t'>464</a></li>
-        
-          <li class='link'><a href='.'>465</a></li>
-        
-          <li class='link'><a href='g'>466</a></li>
-        
-          <li class='link'><a href='a'>467</a></li>
+          <li class='link'><a href='https://blog.iret.xyz/'>Sliver</a></li>
         
       </ul>
   </div>
